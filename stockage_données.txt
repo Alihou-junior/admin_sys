@@ -1,0 +1,46 @@
+MODES DE STOCKAGE (BOF => Block , Objet, Fichier)
+    avec le stockage cloud , on peut stocker à la demande des donées sur des infrastructures hebergées et géré par un cloud provider (aws, Microsoft azure , google cloud,OVH cloud)
+    Quelque soit le cloud provider, il y a 3 types de stockage :
+        + Bloc :    vu comme de l'espce disque , sur lequel on peut stocker les données(EBS , Azure Disk storage, Persistent disk , block storage)
+                    Chaque fichier est diviser en plusieurs bloc de données stocké séparément. chaque bloc existe de facon autonome, pemettant de mettre à jour des segment spécifique.
+                    Souvent deployé dans des environneent de type SAN
+
+                        permet :    Modifications rapide et fine des données
+                                        Performance / faible latence => stockage de VM ou de BD transacionnelle(bcp de modif)
+
+                        contrainte :    forcément lié à une instance
+
+        + Objet:    ideal pour stockerde gros volume de données non structuré(video , image, page web statiques, fichiers texte, audio , email ... ). 
+                    ces données sont stockés sous forme d'objet(paquet) contenant 3 élément : 
+                        - la donnée
+                        - des metadonnées (exp : lieu d'enregistrement, les acteurs , ...)
+                        - id d'objet unique (aussi une metadonnée)
+                    chaque objet est stocké dans un Bucket , on peut acceder aux donnée par une api si la données est hebergée dans du stockage d'objet. (S3 , Blob storage, cloud storage , object storage)
+                    c'est le plus evolutif des types de stockage, il peut aller jusqu'au petaoctets de données
+
+                        permet :    stockage évolutif
+                                    metadonnée illimité
+                                    convient aux données statiques : Archivage, sauvegarde , site web statique,(grace aux metadonnées =>) Big data, Analyse de données, IA ,...
+
+                        contrainte :    Modifications assez fastidieuses( i faut creer un nouvel objet ) 
+                                        latence plus longue
+
+        + Fichier:  Stockage et partage de fichier permettant de presenter ses fichier aux applications et utilisateurs finaux. Les données sont stocké en tant qu'élément d'un dossier accessible via un chemin.
+                    se presente sous la forme d'un NAS (EFS , Azure File, FIlestore , FIle storage)
+
+                        permet :    controler l'acces, le partage entre +ieurs utilisateurs et instances et la protection des fichier(par mdp)
+                                    d'avoir des refentiels de contenu, de faliciter la collaboration et partage de doc
+                                    l'acces simultanés par +ieurs instances
+
+                        contrainte :    Baisse de performance si gros volume de fichiers
+                                        pas facile à faire evoluer, à faire monter à l'echelle
+    chaque type de stockage permet de conserver,d'organiser et de presenter les données en fonction de l'usage.
+
+
+
+    le Mode objet plus precisement 
+
+        le mode objet est ideal pour les objets non structurés. la plupart des données sur le web sont non structurés(text , audio, video...).ceux sont des données non conformes aux modeles predefinis
+        des BD relationnelles ont les appelles le BIG DATA. 
+        On peut acceder aux objets via des api avec l'utilisation de protocoles web(http,...). une donnée est alors accessible via une application web par n'importe quel type d'appareils, de n'importe ou en simultané.
+        Le stockage objet convient aux donnees statiques(souvent lu , tres peu modiifiées) c'est aussi sont plus gros defauts car la Modification d'un objet est compliquée et donc pas adapté aux BD relationnelles.
